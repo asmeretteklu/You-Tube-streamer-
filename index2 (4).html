@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎀 YouTube Glove Connector 🎀</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #ffe6f2;
+            font-family: "Comic Sans MS", cursive, sans-serif;
+        }
+        h1 {
+            color: #ff3385;
+            font-size: 30px;
+            margin-top: 30px;
+        }
+        p {
+            color: #ff66b2;
+            font-size: 20px;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        input {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 10px;
+            border: 1px solid #ff66b2;
+            width: 200px;
+            text-align: center;
+        }
+        button {
+            background-color: #ff66b2;
+            color: white;
+            font-size: 20px;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 15px #ff66b2;
+            animation: glow 1s infinite alternate;
+        }
+        button:hover {
+            background-color: #ff3385;
+            box-shadow: 0 0 25px #ff3385;
+        }
+        @keyframes glow {
+            0% { box-shadow: 0 0 15px #ff66b2; }
+            100% { box-shadow: 0 0 25px #ff3385; }
+        }
+        img {
+            width: 150px;
+            margin-top: 20px;
+        }
+        audio {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎀 YouTube Glove Connector 🎀</h1>
+    
+    <!-- Cute GIF -->
+    <img src="https://media.giphy.com/media/Ll0zn0z9JfZRe/giphy.gif" alt="Cute animation">
+
+    <!-- Login Section -->
+    <div class="container">
+        <p>Enter your username & password to start 💕</p>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">💖 Login</button>
+    </div>
+
+    <!-- YouTube Controls -->
+    <div class="container" id="controls" style="display:none;">
+        <p>🎤 Say "Play YouTube" or use buttons 🎬</p>
+        <button onclick="openYouTube()">💖 Play All</button>
+        <button onclick="pauseVideo()">⏸ Pause</button>
+        <button onclick="nextVideo()">⏭ Next</button>
+        <button onclick="startVoiceControl()">🎤 Voice Control</button>
+        
+        <!-- New: Search Music Section -->
+        <p>🎵 Search for Music on YouTube 🎶</p>
+        <input type="text" id="musicSearch" placeholder="Enter song name">
+        <button onclick="searchMusic()">🔍 Search Music</button>
+    </div>
+
+    <!-- Background Music -->
+    <audio controls autoplay loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-littleidea.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        function login() {
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+
+            if (username === "12345" && password === "1234") {  
+                alert("Login Successful! Welcome, Love 💖");
+                document.getElementById("controls").style.display = "block"; 
+            } else {
+                alert("Oops! Wrong username or password 😢");
+            }
+        }
+
+        function openYouTube() {
+            window.open("https://www.youtube.com/results?search_query=play+all", "_blank");
+        }
+
+        function pauseVideo() {
+            alert("You can press 'K' on your keyboard to pause/play YouTube videos!");
+        }
+
+        function nextVideo() {
+            alert("You can press 'Shift + N' on your keyboard to skip to the next video!");
+        }
+
+        function startVoiceControl() {
+            let recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'en-US';
+            recognition.start();
+
+            recognition.onresult = function(event) {
+                let command = event.results[0][0].transcript.toLowerCase();
+                if (command.includes("play youtube")) {
+                    openYouTube();
+                } else {
+                    alert("Command not recognized 😢 Say 'Play YouTube'!");
+                }
+            };
+        }
+
+        function searchMusic() {
+            let song = document.getElementById("musicSearch").value;
+            if (song.trim() !== "") {
+                let searchUrl = "https://www.youtube.com/results?search_query=" + encodeURIComponent(song);
+                window.open(searchUrl, "_blank");
+            } else {
+                alert("Please enter a song name 🎶");
+            }
+        }
+    </script>
+</body>
+</html>
